@@ -62,6 +62,15 @@
     font-size: calc(var(--fontSize) / 2);
 }
 
-.post-comments > ul > li {
+.comments > li {
     list-style-image: url('../../icons/comment.svg')
+}
+
+.comments {
+    border: 2px solid var(--green);
+    margin: 1vmin;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    height: 10vh;
+    padding-right: 1vmin;
 }

@@ -42,7 +42,7 @@ const Post: FC<Props> = (
 
             <div className={'post-comments'}>
                 <span>Comments:<br/></span>
-                <ul>
+                <ul className={'comments'}>
                     {comments.map(comment => <li className={'comment'}>{comment}</li>)}
                 </ul>
             </div>

@@ -15,7 +15,7 @@ function App() {
         ' eget cursus velit ultricies. Quam molestie tellus himenaeos cubilia congue vivamus ultricies.' +
         ' Interdum praesent ut penatibus fames eros ad consectetur sed.';
 
-    const comments: string[] = ['wow', 'perfect'];
+    const comments: string[] = ['wow', 'perfect', 'perfect', 'perfect', 'perfect', 'perfect'];
 
     return (
         <div className={'app'}>
