@@ -22,6 +22,11 @@ const Post: FC<Props> = (
 
     return (
         <div className={'post'}>
+            <div className={'text-wrapper'}>
+                <div className={'post-text'}>
+                    {text.split('\n').map(line => <span>{line}<br/></span>)}
+                </div>
+            </div>
 
             <div className={'post-creator'}>
                 <span>{username}</span>
@@ -32,12 +37,6 @@ const Post: FC<Props> = (
                 <div className={'date'}>
                     <span>{uploadTime.toLocaleTimeString([], {timeStyle: 'short'})}</span>
                     <span>{uploadTime.toLocaleDateString()}</span>
-                </div>
-            </div>
-
-            <div className={'text-wrapper'}>
-                <div className={'post-text'}>
-                    {text.split('\n').map(line => <span>{line}<br/></span>)}
                 </div>
             </div>
 
