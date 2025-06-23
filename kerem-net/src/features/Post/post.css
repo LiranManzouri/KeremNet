@@ -15,8 +15,6 @@
     width: var(--postWidth);
     height: var(--postHeight);
     max-height: fit-content;
-    background: url("../../icons/background.jpg");
-    background-size: cover;
 }
 
 .post-creator {
