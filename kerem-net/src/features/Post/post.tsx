@@ -1,6 +1,6 @@
 import React, {FC} from "react";
-import './post.css'
-import like from "../../icons/like.svg"
+import './post.css';
+import like from "../../icons/like.svg";
 
 interface Props {
     username: string;
