@@ -1,0 +1,71 @@
+:root {
+    --blue: #1e90ff;
+    --pink: #f9b2ff;
+    --green: #8776ff;
+    --white: #ffffff;
+    --fontSize: 5vmin;
+    --postWidth: 50vw;
+    --postHeight: 50vh;
+}
+
+.post {
+    border: 3px solid var(--blue);
+    border-radius: 30px;
+    padding: 1rem;
+    width: var(--postWidth);
+    height: var(--postHeight);
+    max-height: fit-content;
+    background: url("../../icons/background.jpg");
+    background-size: cover;
+}
+
+.post-creator {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--fontSize);
+    border-bottom: 2px solid var(--pink);
+    margin-bottom: 2vmin;
+}
+
+.text-wrapper {
+    border: 2px solid var(--green);
+    padding: 1vmin;
+    height: calc(var(--postHeight) / 2);
+}
+
+.post-text {
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    height: 100%;
+    padding-right: 1vmin;
+}
+
+.like {
+    width: 4vmin;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.like-icon {
+    width: 100%;
+}
+
+.date {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: calc(var(--fontSize) / 2);
+}
+
+.post-comments {
+    border-top: 2px solid var(--pink);
+    margin-top: 2vmin;
+    padding-top: 2vmin;
+}
+
+.post-comments > ul > li {
+    list-style-image: url('../../icons/comment.svg')
+}
