@@ -9,13 +9,13 @@ const Post: FC<Omit<PostModel, "id">> = (
     {
         username,
         likesCount,
-        uploadTime,
+        uploadDate,
         text,
         comments
     }
 ) => {
 
-    const date = `${uploadTime.toLocaleTimeString([], {timeStyle: 'short'})}, ${uploadTime.toLocaleDateString()}`;
+    const date = `${uploadDate.toLocaleTimeString([], {timeStyle: 'short'})}, ${uploadDate.toLocaleDateString()}`;
 
     return (
         <Card className={'post'}>

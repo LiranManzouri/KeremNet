@@ -9,20 +9,25 @@ function App() {
     const [posts, setPosts] = useState<PostModel[]>([])
 
     useEffect(() => {
-        fetch(
-            "http://localhost:5000/posts",
-            {
-                method: "get",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-            }
-        )
+
+        const getPosts = async () => {
+            const postsRequest = await fetch(
+                "http://localhost:5000/posts",
+                {
+                    method: "get",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                }
+            );
+        };
+
+
             .then(postsRequest => postsRequest.json())
             .then((postsReceived) => {
-                return postsReceived.map((post: { uploadTime: string, comments: CommentModel[] }) => {
-                        const {uploadTime, comments, ...newPost} = post;
-                        Object.assign(newPost, {uploadTime: new Date(uploadTime)});
+                return postsReceived.map((post: { uploadDate: string, comments: CommentModel[] }) => {
+                        const {uploadDate, comments, ...newPost} = post;
+                        Object.assign(newPost, {uploadDate: new Date(uploadDate)});
                         Object.assign(newPost, {
                             comments: post.comments.map(comment => {
                                 const {publishDate, ...newComment} = comment;
@@ -50,7 +55,7 @@ function App() {
                         key={post.id}
                         username={post.username}
                         likesCount={post.likesCount}
-                        uploadTime={post.uploadTime}
+                        uploadDate={post.uploadDate}
                         text={post.text}
                         comments={post.comments}
                     />)
