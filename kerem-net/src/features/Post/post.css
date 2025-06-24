@@ -38,6 +38,7 @@
     scrollbar-width: thin;
     height: 100%;
     padding-right: 1vmin;
+    white-space: pre-wrap;
 }
 
 .comments > li {
@@ -51,7 +52,7 @@
 
 .comment-icon {
     width: 2vmin !important;
-    margin-right: 2vmin;
+    margin-right: 1vmin;
 }
 
 .likes {

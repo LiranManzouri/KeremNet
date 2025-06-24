@@ -1,6 +1,7 @@
 import React from 'react';
 import Post from "./features/Post/post";
 import './app.css'
+import {CommentProps} from "./features/Post/Comment/comment";
 
 function App() {
     const username: string = 'Liran';
@@ -15,7 +16,18 @@ function App() {
         ' eget cursus velit ultricies. Quam molestie tellus himenaeos cubilia congue vivamus ultricies.' +
         ' Interdum praesent ut penatibus fames eros ad consectetur sed.';
 
-    const comments: string[] = ['wow', 'perfect', 'perfect', 'perfect', 'perfect', 'perfect'];
+    const comments: CommentProps[] = [
+        {
+            content: 'Wow',
+            creator: 'Ido',
+            publishDate: new Date(new Date().setHours(8))
+        },
+        {
+            content: 'Wow',
+            creator: 'Ido',
+            publishDate: new Date(new Date().setHours(13))
+        }
+    ]
 
     return (
         <div className={'app'}>

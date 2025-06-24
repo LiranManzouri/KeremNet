@@ -1,16 +1,15 @@
 import React, {FC} from "react";
 import './post.css';
-import like from "../../icons/like.svg";
-import {Card, CardContent, CardHeader, IconButton, Typography} from "@mui/material";
+import {Card, CardContent, CardHeader} from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
+import Comment, {CommentProps} from './Comment/comment';
 
 interface Props {
     username: string;
     likes: number;
     uploadTime: Date;
     text: string;
-    comments: string[];
+    comments: CommentProps[];
 }
 
 const Post: FC<Props> = (
@@ -33,7 +32,7 @@ const Post: FC<Props> = (
             />
             <CardContent className={'text-wrapper'}>
                 <div className={'post-text'}>
-                    {text.split('\n').map(line => <Typography>{line}</Typography>)}
+                    {text}
                 </div>
             </CardContent>
 
@@ -42,19 +41,16 @@ const Post: FC<Props> = (
                 <ul className={'comments'}>
                     {comments.map(comment =>
                         <li className={'comment'}>
-                            <>
-                                <CommentOutlinedIcon className={'comment-icon'}></CommentOutlinedIcon>
-                                {comment}
-                            </>
+                            <Comment {...comment}></Comment>
                         </li>)}
                 </ul>
             </div>
 
             <div className={'likes'}>
-                16<FavoriteIcon className={'like-icon'}/>
+                {likes}<FavoriteIcon className={'like-icon'}/>
             </div>
         </Card>
-)
+    )
 };
 
 export default Post;
