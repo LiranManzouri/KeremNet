@@ -17,7 +17,7 @@ const Comment: FC<CommentProps> = ({content, publishDate, creator}) => {
             <div className={'comment-details'}>
                 <div className={'comment-publish-info'}>
                     <span className={'comment-creator'}>{creator}</span>
-                    <span>{date}</span>
+                    <span className={'comment-publish-date'}>{date}</span>
                 </div>
                 <span className={'comment-content'}>{content}</span>
             </div>
