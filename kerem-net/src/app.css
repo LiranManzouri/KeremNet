@@ -6,11 +6,3 @@
     --postWidth: 30vw;
     --postHeight: 50vh;
 }
-
-.app {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 5vmin;
-}
