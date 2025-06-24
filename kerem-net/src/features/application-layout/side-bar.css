@@ -1,0 +1,10 @@
+.side-bar {
+    margin-bottom: 5vmin;
+}
+
+.menu-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5vmin;
+}
