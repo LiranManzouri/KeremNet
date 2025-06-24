@@ -6,7 +6,7 @@ import Comment, {CommentProps} from './Comment/comment';
 
 interface Props {
     username: string;
-    likes: number;
+    likesCount: number;
     uploadTime: Date;
     text: string;
     comments: CommentProps[];
@@ -15,7 +15,7 @@ interface Props {
 const Post: FC<Props> = (
     {
         username,
-        likes,
+        likesCount,
         uploadTime,
         text,
         comments
@@ -40,14 +40,13 @@ const Post: FC<Props> = (
                 <span>Comments:<br/></span>
                 <ul className={'comments'}>
                     {comments.map(comment =>
-                        <li className={'comment'}>
-                            <Comment {...comment}></Comment>
-                        </li>)}
+                        <Comment {...comment}/>
+                    )}
                 </ul>
             </div>
 
             <div className={'likes'}>
-                {likes}<FavoriteIcon className={'like-icon'}/>
+                {likesCount}<FavoriteIcon className={'like-icon'}/>
             </div>
         </Card>
     )

@@ -32,10 +32,10 @@ function App() {
     return (
         <div className={'app'}>
             <Post username={username}
-                  likes={likes}
+                  likesCount={likes}
                   uploadTime={uploadDate}
                   text={text}
-                  comments={comments}></Post>
+                  comments={comments}/>
         </div>
     );
 }

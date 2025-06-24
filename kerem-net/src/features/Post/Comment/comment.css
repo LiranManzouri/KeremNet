@@ -21,10 +21,3 @@
     display: flex;
     justify-content: space-between;
 }
-
-.comment-info {
-}
-
-.comment-publish-date {
-    float: right;
-}

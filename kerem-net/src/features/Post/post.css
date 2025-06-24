@@ -45,11 +45,6 @@
     list-style: none;
 }
 
-.comment {
-    display: flex;
-    align-items: center;
-}
-
 .comment-icon {
     width: 2vmin !important;
     margin-right: 1vmin;

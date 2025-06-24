@@ -13,11 +13,11 @@ const Comment: FC<CommentProps> = ({content, publishDate, creator}) => {
 
     return (
         <div className={'comment-info'}>
-            <CommentOutlinedIcon className={'comment-icon'}></CommentOutlinedIcon>
+            <CommentOutlinedIcon className={'comment-icon'}/>
             <div className={'comment-details'}>
                 <div className={'comment-publish-info'}>
                     <span className={'comment-creator'}>{creator}</span>
-                    <span className={'comment-publish-date'}>{date}</span>
+                    <span>{date}</span>
                 </div>
                 <span className={'comment-content'}>{content}</span>
             </div>
