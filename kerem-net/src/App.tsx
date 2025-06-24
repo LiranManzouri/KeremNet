@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Post from "./features/Post/post";
 import './app.css';
 import PostModel from "./features/Post/post-model";
