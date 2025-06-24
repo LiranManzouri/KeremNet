@@ -20,12 +20,3 @@
     display: flex;
     justify-content: space-between;
 }
-
-.creator {
-    font-size: calc(var(--fontSize) / 2) !important;
-    font-weight: bolder !important;
-}
-
-.comment-content, .publish-date {
-    font-size: calc(var(--fontSize) / 2) !important;
-}

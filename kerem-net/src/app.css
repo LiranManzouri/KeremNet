@@ -3,7 +3,6 @@
     --pink: #f9b2ff;
     --green: #8776ff;
     --white: #ffffff;
-    --fontSize: 2.5vmin;
     --postWidth: 30vw;
     --postHeight: 50vh;
 }
@@ -13,6 +12,5 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: var(--fontSize);
     gap: 5vmin;
 }

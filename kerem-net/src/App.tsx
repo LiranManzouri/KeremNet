@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import Post from "./features/Post/post";
+import Post from "./features/post/post";
 import './app.css';
-import PostModel from "./features/Post/post-model";
-import CommentModel from "./features/Post/Comment/comment-model";
+import PostModel from "./features/post/post-model";
 
 function App() {
 
