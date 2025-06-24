@@ -5,7 +5,7 @@ import useGetPosts from "./useGetPosts";
 
 const HomePage: FC = () => {
 
-    const [posts, setPosts] = useGetPosts();
+    const posts = useGetPosts();
 
     return (
         <div className={'home-page'}>
