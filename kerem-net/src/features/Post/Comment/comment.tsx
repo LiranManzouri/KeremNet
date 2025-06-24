@@ -1,9 +1,9 @@
 import React, {FC} from "react";
 import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
 import './comment.css';
-import CommentModel from "./CommentModel";
+import CommentModel from "./comment-model";
 
-const Comment: FC<CommentModel> = ({content, publishDate, creator}) => {
+const Comment: FC<Omit<CommentModel, "id">> = ({content, publishDate, creator}) => {
     const date = `${publishDate.toLocaleTimeString([], {timeStyle: 'short'})}, ${publishDate.toLocaleDateString()}`;
 
     return (

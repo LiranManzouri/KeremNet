@@ -3,17 +3,9 @@ import './post.css';
 import {Card, CardContent, CardHeader} from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Comment from './Comment/comment';
-import CommentModel from "./Comment/CommentModel";
+import PostModel from "./post-model";
 
-export interface PostProps {
-    username: string;
-    likesCount: number;
-    uploadTime: Date;
-    text: string;
-    comments: CommentModel[];
-}
-
-const Post: FC<PostProps> = (
+const Post: FC<Omit<PostModel, "id">> = (
     {
         username,
         likesCount,
@@ -41,7 +33,10 @@ const Post: FC<PostProps> = (
                 <span>Comments:<br/></span>
                 <ul className={'comments'}>
                     {comments.map(comment =>
-                        <Comment {...comment}/>
+                        <Comment
+                            key={comment.id}
+                            {...comment}
+                        />
                     )}
                 </ul>
             </div>

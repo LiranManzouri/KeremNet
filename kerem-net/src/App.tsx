@@ -1,25 +1,59 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Post from "./features/Post/post";
-import './app.css'
-import postsJson from './posts.json'
-
+import './app.css';
+import PostModel from "./features/Post/post-model";
+import CommentModel from "./features/Post/Comment/comment-model";
 
 function App() {
 
-    const posts = postsJson.posts;
+    const [posts, setPosts] = useState<PostModel[]>([])
+
+    useEffect(() => {
+        fetch(
+            "http://localhost:5000/posts",
+            {
+                method: "get",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            }
+        )
+            .then(postsRequest => postsRequest.json())
+            .then((postsReceived) => {
+                return postsReceived.map((post: { uploadTime: string, comments: CommentModel[] }) => {
+                        const {uploadTime, comments, ...newPost} = post;
+                        Object.assign(newPost, {uploadTime: new Date(uploadTime)});
+                        Object.assign(newPost, {
+                            comments: post.comments.map(comment => {
+                                const {publishDate, ...newComment} = comment;
+                                Object.assign(newComment, {publishDate: new Date(comment.publishDate)});
+                                return newComment;
+                            })
+                        });
+                        return newPost;
+                    }
+                )
+            })
+            .then(postsReceived => {
+                console.log(postsReceived)
+                setPosts(postsReceived)
+            })
+            .catch(e => alert(e));
+    }, []);
+
 
     return (
         <div className={'app'}>
             {
                 posts.map(post =>
-                    <Post username={post.username}
-                          likesCount={post.likes}
-                          uploadTime={new Date(post.uploadDate)}
-                          text={post.text}
-                          comments={post.comments.map(comment => {
-                              return {...comment, publishDate: new Date(comment.publishDate)};
-                          })}
-                    ></Post>)
+                    <Post
+                        key={post.id}
+                        username={post.username}
+                        likesCount={post.likesCount}
+                        uploadTime={post.uploadTime}
+                        text={post.text}
+                        comments={post.comments}
+                    />)
             }
         </div>
     );
