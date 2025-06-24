@@ -1,6 +1,6 @@
 import React, {FC} from "react";
 import './post.css';
-import {Card, CardContent, CardHeader} from "@mui/material";
+import {Card, CardContent, CardHeader, Typography} from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Comment from './Comment/comment';
 import PostModel from "./post-model";
@@ -24,13 +24,13 @@ const Post: FC<Omit<PostModel, "id">> = (
                         subheader={date}
             />
             <CardContent className={'text-wrapper'}>
-                <div className={'post-text'}>
-                    <span>{text}</span>
-                </div>
+                <Typography className={'post-text'}>
+                    {text}
+                </Typography>
             </CardContent>
 
             <div className={'post-comments'}>
-                <span>{'Comments:\n'}</span>
+                <Typography>{'Comments:'}</Typography>
                 <ol className={'comments'}>
                     {comments.map(comment =>
                         <Comment
