@@ -1,7 +1,7 @@
-import {Dispatch, SetStateAction, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import PostModel from "../post/post-model";
 
-const useGetPosts: () => [PostModel[], Dispatch<SetStateAction<PostModel[]>>] = () => {
+const useGetPosts: () => PostModel[] = () => {
     const [posts, setPosts] = useState<PostModel[]>([])
 
     useEffect(() => {
@@ -21,11 +21,15 @@ const useGetPosts: () => [PostModel[], Dispatch<SetStateAction<PostModel[]>>] = 
             setPosts(postsReceived);
         }
 
-        getPosts().catch(e => alert(e));
+        try {
+            getPosts().then();
+        } catch (e) {
+            alert(e)
+        }
 
     }, []);
 
-    return [posts, setPosts];
+    return posts;
 }
 
 export default useGetPosts;
