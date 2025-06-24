@@ -10,7 +10,7 @@
 
 .post {
     border: 3px solid var(--blue);
-    border-radius: 30px;
+    border-radius: 30px !important;
     padding: 0 1rem 1rem 1rem;
     width: var(--postWidth);
     height: var(--postHeight);

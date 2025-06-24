@@ -22,7 +22,8 @@
     justify-content: space-between;
 }
 
-.comment-info {
+.comment-content {
+    font-size: calc(var(--fontSize) / 2.5);
 }
 
 .comment-publish-date {

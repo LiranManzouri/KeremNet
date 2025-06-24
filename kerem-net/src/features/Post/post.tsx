@@ -4,7 +4,7 @@ import {Card, CardContent, CardHeader} from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Comment, {CommentProps} from './Comment/comment';
 
-interface Props {
+export interface PostProps {
     username: string;
     likes: number;
     uploadTime: Date;
@@ -12,7 +12,7 @@ interface Props {
     comments: CommentProps[];
 }
 
-const Post: FC<Props> = (
+const Post: FC<PostProps> = (
     {
         username,
         likes,
