@@ -1,7 +1,7 @@
 interface CommentModel {
     id: number;
     content: string;
-    publishDate: Date;
+    publishDate: string;
     creator: string;
 }
 

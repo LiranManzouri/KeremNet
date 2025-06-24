@@ -4,7 +4,7 @@ interface PostModel {
     id: number;
     username: string;
     likesCount: number;
-    uploadDate: Date;
+    uploadDate: string;
     text: string;
     comments: CommentModel[];
 }

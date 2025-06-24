@@ -4,7 +4,8 @@ import './comment.css';
 import CommentModel from "./comment-model";
 
 const Comment: FC<Omit<CommentModel, "id">> = ({content, publishDate, creator}) => {
-    const date = `${publishDate.toLocaleTimeString([], {timeStyle: 'short'})}, ${publishDate.toLocaleDateString()}`;
+    const date = new Date(publishDate);
+    const dateToShow = `${date.toLocaleTimeString([], {timeStyle: 'short'})}, ${date.toLocaleDateString()}`;
 
     return (
         <div className={'comment-info'}>
@@ -12,7 +13,7 @@ const Comment: FC<Omit<CommentModel, "id">> = ({content, publishDate, creator}) 
             <div className={'comment-details'}>
                 <div className={'comment-publish-info'}>
                     <span>{creator}</span>
-                    <span>{date}</span>
+                    <span>{dateToShow}</span>
                 </div>
                 <span className={'comment-content'}>{content}</span>
             </div>

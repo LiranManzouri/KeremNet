@@ -14,14 +14,14 @@ const Post: FC<Omit<PostModel, "id">> = (
         comments
     }
 ) => {
-
-    const date = `${uploadDate.toLocaleTimeString([], {timeStyle: 'short'})}, ${uploadDate.toLocaleDateString()}`;
+    const date = new Date(uploadDate);
+    const dateToShow = `${date.toLocaleTimeString([], {timeStyle: 'short'})}, ${date.toLocaleDateString()}`;
 
     return (
         <Card className={'post'}>
             <CardHeader className={'post-creator'}
                         title={username}
-                        subheader={date}
+                        subheader={dateToShow}
             />
             <CardContent className={'text-wrapper'}>
                 <Typography className={'post-text'}>

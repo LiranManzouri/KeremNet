@@ -22,20 +22,7 @@ function App() {
             );
 
             const postsReceived = await postsRequest.json();
-            const correctPost = postsReceived.map((post: { uploadDate: string, comments: CommentModel[] }) => {
-                    const {uploadDate, comments, ...newPost} = post;
-                    Object.assign(newPost, {uploadDate: new Date(uploadDate)});
-                    Object.assign(newPost, {
-                        comments: post.comments.map(comment => {
-                            const {publishDate, ...newComment} = comment;
-                            Object.assign(newComment, {publishDate: new Date(comment.publishDate)});
-                            return newComment;
-                        })
-                    });
-                    return newPost;
-                }
-            )
-            setPosts(correctPost);
+            setPosts(postsReceived);
         }
 
         getPosts().catch(e => alert(e));
