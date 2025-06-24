@@ -13,10 +13,10 @@ const Comment: FC<Omit<CommentModel, "id">> = ({content, publishDate, creator}) 
             <CommentOutlinedIcon className={'comment-icon'}/>
             <div className={'comment-details'}>
                 <div className={'comment-publish-info'}>
-                    <Typography className={'creator'}>{creator}</Typography>
-                    <Typography className={'publish-date'}>{dateToShow}</Typography>
+                    <Typography fontSize={"0.8rem"} fontWeight={"bold"}>{creator}</Typography>
+                    <Typography fontSize={"0.8rem"}>{dateToShow}</Typography>
                 </div>
-                <Typography className={'comment-content'}>{content}</Typography>
+                <Typography fontSize={"0.8rem"}>{content}</Typography>
             </div>
         </div>
     );
