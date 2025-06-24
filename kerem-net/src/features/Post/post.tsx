@@ -33,17 +33,17 @@ const Post: FC<Props> = (
             />
             <CardContent className={'text-wrapper'}>
                 <div className={'post-text'}>
-                    {text}
+                    <span>{text}</span>
                 </div>
             </CardContent>
 
             <div className={'post-comments'}>
-                <span>Comments:<br/></span>
-                <ul className={'comments'}>
+                <span>{'Comments:\n'}</span>
+                <ol className={'comments'}>
                     {comments.map(comment =>
                         <Comment {...comment}/>
                     )}
-                </ul>
+                </ol>
             </div>
 
             <div className={'likes'}>
