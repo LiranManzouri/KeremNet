@@ -2,20 +2,21 @@ import React, {FC} from "react";
 import './post.css';
 import {Card, CardContent, CardHeader} from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import Comment, {CommentProps} from './Comment/comment';
+import Comment from './Comment/comment';
+import CommentModel from "./Comment/CommentModel";
 
 export interface PostProps {
     username: string;
-    likes: number;
+    likesCount: number;
     uploadTime: Date;
     text: string;
-    comments: CommentProps[];
+    comments: CommentModel[];
 }
 
 const Post: FC<PostProps> = (
     {
         username,
-        likes,
+        likesCount,
         uploadTime,
         text,
         comments
@@ -40,14 +41,13 @@ const Post: FC<PostProps> = (
                 <span>Comments:<br/></span>
                 <ul className={'comments'}>
                     {comments.map(comment =>
-                        <li className={'comment'}>
-                            <Comment {...comment}></Comment>
-                        </li>)}
+                        <Comment {...comment}/>
+                    )}
                 </ul>
             </div>
 
             <div className={'likes'}>
-                {likes}<FavoriteIcon className={'like-icon'}/>
+                {likesCount}<FavoriteIcon className={'like-icon'}/>
             </div>
         </Card>
     )

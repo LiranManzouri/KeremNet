@@ -3,6 +3,7 @@ import Post from "./features/Post/post";
 import './app.css'
 import postsJson from './posts.json'
 
+
 function App() {
 
     const posts = postsJson.posts;
@@ -12,7 +13,7 @@ function App() {
             {
                 posts.map(post =>
                     <Post username={post.username}
-                          likes={post.likes}
+                          likesCount={post.likes}
                           uploadTime={new Date(post.uploadDate)}
                           text={post.text}
                           comments={post.comments.map(comment => {

@@ -21,11 +21,3 @@
     display: flex;
     justify-content: space-between;
 }
-
-.comment-content {
-    font-size: calc(var(--fontSize) / 2.5);
-}
-
-.comment-publish-date {
-    float: right;
-}
