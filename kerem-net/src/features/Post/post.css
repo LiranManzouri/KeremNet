@@ -1,13 +1,3 @@
-:root {
-    --blue: #1e90ff;
-    --pink: #f9b2ff;
-    --green: #8776ff;
-    --white: #ffffff;
-    --fontSize: 5vmin;
-    --postWidth: 30vw;
-    --postHeight: 50vh;
-}
-
 .post {
     border: 3px solid var(--blue);
     border-radius: 30px !important;
@@ -24,7 +14,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: var(--fontSize);
 }
 
 .text-wrapper {
