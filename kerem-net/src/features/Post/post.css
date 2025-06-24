@@ -11,18 +11,15 @@
 .post {
     border: 3px solid var(--blue);
     border-radius: 30px;
-    padding: 1rem;
+    padding: 0 1rem 1rem 1rem;
     width: var(--postWidth);
     height: var(--postHeight);
     max-height: fit-content;
 }
 
 .post-creator {
-    border-top: 2px solid var(--pink);
     border-bottom: 2px solid var(--pink);
-    margin-top: 2vmin;
     margin-bottom: 2vmin;
-    padding-top: 2vmin;
     padding-bottom: 2vmin;
     display: flex;
     justify-content: space-between;
@@ -33,7 +30,7 @@
 .text-wrapper {
     border: 2px solid var(--green);
     padding: 1vmin;
-    height: calc(var(--postHeight) / 2.5);
+    height: calc(var(--postHeight) / 3);
 }
 
 .post-text {
@@ -41,29 +38,31 @@
     scrollbar-width: thin;
     height: 100%;
     padding-right: 1vmin;
+    white-space: pre-wrap;
 }
 
-.like {
-    width: 4vmin;
+.comments > li {
+    list-style: none;
+}
+
+.comment {
     display: flex;
-    justify-content: center;
+    align-items: center;
+}
+
+.comment-icon {
+    width: 2vmin !important;
+    margin-right: 1vmin;
+}
+
+.likes {
+    display: flex;
     align-items: center;
 }
 
 .like-icon {
-    width: 100%;
-}
-
-.date {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: calc(var(--fontSize) / 2);
-}
-
-.comments > li {
-    list-style-image: url('../../icons/comment.svg')
+    width: 2vmin !important;
+    color: red;
 }
 
 .comments {
@@ -71,6 +70,6 @@
     margin: 1vmin;
     overflow-y: scroll;
     scrollbar-width: thin;
-    height: 10vh;
+    height: 8vh;
     padding-right: 1vmin;
 }

@@ -15,7 +15,10 @@ function App() {
                           likes={post.likes}
                           uploadTime={new Date(post.uploadDate)}
                           text={post.text}
-                          comments={post.comments}></Post>)
+                          comments={post.comments.map(comment => {
+                              return {...comment, publishDate: new Date(comment.publishDate)};
+                          })}
+                    ></Post>)
             }
         </div>
     );

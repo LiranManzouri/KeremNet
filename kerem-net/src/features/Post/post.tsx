@@ -1,13 +1,15 @@
 import React, {FC} from "react";
 import './post.css';
-import like from "../../icons/like.svg";
+import {Card, CardContent, CardHeader} from "@mui/material";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import Comment, {CommentProps} from './Comment/comment';
 
 interface Props {
     username: string;
     likes: number;
     uploadTime: Date;
     text: string;
-    comments: string[];
+    comments: CommentProps[];
 }
 
 const Post: FC<Props> = (
@@ -20,34 +22,35 @@ const Post: FC<Props> = (
     }
 ) => {
 
-    return (
-        <div className={'post'}>
-            <div className={'text-wrapper'}>
-                <div className={'post-text'}>
-                    {text.split('\n').map(line => <span>{line}<br/></span>)}
-                </div>
-            </div>
+    const date = `${uploadTime.toLocaleTimeString([], {timeStyle: 'short'})}, ${uploadTime.toLocaleDateString()}`;
 
-            <div className={'post-creator'}>
-                <span>{username}</span>
-                <span className={'like'}>
-                    <span>{likes}</span>
-                    <img src={like} className="like-icon" alt="like-icon"/>
-                </span>
-                <div className={'date'}>
-                    <span>{uploadTime.toLocaleTimeString([], {timeStyle: 'short'})}</span>
-                    <span>{uploadTime.toLocaleDateString()}</span>
+    return (
+        <Card className={'post'}>
+            <CardHeader className={'post-creator'}
+                        title={username}
+                        subheader={date}
+            />
+            <CardContent className={'text-wrapper'}>
+                <div className={'post-text'}>
+                    {text}
                 </div>
-            </div>
+            </CardContent>
 
             <div className={'post-comments'}>
                 <span>Comments:<br/></span>
                 <ul className={'comments'}>
-                    {comments.map(comment => <li className={'comment'}>{comment}</li>)}
+                    {comments.map(comment =>
+                        <li className={'comment'}>
+                            <Comment {...comment}></Comment>
+                        </li>)}
                 </ul>
             </div>
 
-        </div>)
+            <div className={'likes'}>
+                {likes}<FavoriteIcon className={'like-icon'}/>
+            </div>
+        </Card>
+    )
 };
 
 export default Post;
