@@ -1,6 +1,6 @@
 import React, {FC} from "react";
 
-import {Typography, AppBar, Box, Avatar, IconButton, Toolbar} from "@mui/material";
+import {Typography, AppBar, Box, Avatar, IconButton, Toolbar, Button} from "@mui/material";
 import logo from './logo.png';
 import './side-bar.css'
 
@@ -16,12 +16,12 @@ const SideBar: FC = () => {
                     <Avatar src={logo}/>
                 </IconButton>
                 <div className={'menu-options'}>
-                    <Typography variant="h6">
+                    <Button sx={{color: 'white'}}>
                         All Posts
-                    </Typography>
-                    <Typography variant="h6">
-                        Add Post
-                    </Typography>
+                    </Button>
+                    <Button sx={{color: 'white'}}>
+                        All Posts
+                    </Button>
                 </div>
             </Toolbar>
         </AppBar>
