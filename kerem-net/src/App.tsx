@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import Post from "./features/Post/post";
+import Post from "./features/post/post";
 import './app.css';
-import PostModel from "./features/Post/post-model";
-import CommentModel from "./features/Post/Comment/comment-model";
+import PostModel from "./features/post/post-model";
+import SideBar from "./features/application-layout/side-bar";
 
 function App() {
 
@@ -31,19 +31,22 @@ function App() {
 
 
     return (
-        <div className={'app'}>
-            {
-                posts.map(post =>
-                    <Post
-                        key={post.id}
-                        username={post.username}
-                        likesCount={post.likesCount}
-                        uploadDate={post.uploadDate}
-                        text={post.text}
-                        comments={post.comments}
-                    />)
-            }
-        </div>
+        <>
+            <SideBar/>
+            <div className={'app'}>
+                {
+                    posts.map(post =>
+                        <Post
+                            key={post.id}
+                            username={post.username}
+                            likesCount={post.likesCount}
+                            uploadDate={post.uploadDate}
+                            text={post.text}
+                            comments={post.comments}
+                        />)
+                }
+            </div>
+        </>
     );
 }
 

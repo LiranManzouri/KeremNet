@@ -2,7 +2,7 @@ import React, {FC} from "react";
 import './post.css';
 import {Card, CardContent, CardHeader, Typography} from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import Comment from './Comment/comment';
+import Comment from './comment/comment';
 import PostModel from "./post-model";
 
 const Post: FC<Omit<PostModel, "id">> = (
