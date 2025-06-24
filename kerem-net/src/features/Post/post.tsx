@@ -2,14 +2,15 @@ import React, {FC} from "react";
 import './post.css';
 import {Card, CardContent, CardHeader} from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import Comment, {CommentProps} from './Comment/comment';
+import Comment from './Comment/comment';
+import CommentModel from "./Comment/CommentModel";
 
 interface Props {
     username: string;
     likesCount: number;
     uploadTime: Date;
     text: string;
-    comments: CommentProps[];
+    comments: CommentModel[];
 }
 
 const Post: FC<Props> = (

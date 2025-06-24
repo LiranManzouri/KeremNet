@@ -1,7 +1,7 @@
 import React from 'react';
 import Post from "./features/Post/post";
 import './app.css'
-import {CommentProps} from "./features/Post/Comment/comment";
+import CommentModel from "./features/Post/Comment/CommentModel";
 
 function App() {
     const username: string = 'Liran';
@@ -16,7 +16,7 @@ function App() {
         ' eget cursus velit ultricies. Quam molestie tellus himenaeos cubilia congue vivamus ultricies.' +
         ' Interdum praesent ut penatibus fames eros ad consectetur sed.';
 
-    const comments: CommentProps[] = [
+    const comments: CommentModel[] = [
         {
             content: 'Wow',
             creator: 'Ido',
