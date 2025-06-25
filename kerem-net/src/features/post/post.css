@@ -1,6 +1,5 @@
 .post {
     border: 3px solid var(--blue);
-    border-radius: 30px !important;
     padding: 0 1rem 1rem 1rem;
     width: var(--postWidth);
     height: var(--postHeight);
@@ -35,7 +34,6 @@
 }
 
 .comment-icon {
-    width: 2vmin !important;
     margin-right: 1vmin;
 }
 
@@ -45,7 +43,6 @@
 }
 
 .like-icon {
-    width: 2vmin !important;
     color: red;
 }
 

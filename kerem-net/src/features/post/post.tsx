@@ -3,7 +3,7 @@ import './post.css';
 import {Card, CardContent, CardHeader, Typography} from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Comment from './comment/comment';
-import PostModel from "./post-model";
+import PostModel from "../../../../common/models/post-model";
 
 const Post: FC<Omit<PostModel, "id">> = (
     {
@@ -18,7 +18,7 @@ const Post: FC<Omit<PostModel, "id">> = (
     const dateToShow = `${date.toLocaleTimeString([], {timeStyle: 'short'})}, ${date.toLocaleDateString()}`;
 
     return (
-        <Card className={'post'}>
+        <Card className={'post'} sx={{borderRadius: '30px'}}>
             <CardHeader className={'post-creator'}
                         title={username}
                         subheader={dateToShow}
@@ -42,7 +42,7 @@ const Post: FC<Omit<PostModel, "id">> = (
             </div>
 
             <div className={'likes'}>
-                {likesCount}<FavoriteIcon className={'like-icon'}/>
+                {likesCount}<FavoriteIcon className={'like-icon'} sx={{width: '2vmin'}}/>
             </div>
         </Card>
     )

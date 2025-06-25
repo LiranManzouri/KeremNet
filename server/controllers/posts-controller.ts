@@ -1,64 +1,52 @@
-import Post from '../models/post-model';
-import Comment from "../models/comment-model";
+import Post from '../../common/models/post-model';
+import Comment from '../../common/models/comment-model';
+
+enum StatusCodes {
+    SUCCESS,
+    POST_ERROR,
+    COMMENT_ERROR
+}
+
+const errorMessages = {
+    [StatusCodes.SUCCESS]: 'Success',
+    [StatusCodes.POST_ERROR]: 'No such post',
+    [StatusCodes.COMMENT_ERROR]: 'No such comment'
+};
 
 class PostsController {
     posts: Post[];
 
     constructor() {
-        this.posts = [{
-            "id": 1,
-            "username": "Liran",
-            "likesCount": 6,
-            "uploadDate": "2018-01-10T08:14",
-            "text": "This is my text!\n\nLorem ipsum odor amet, consectetuer adipiscing elit. Imperdiet erat nullam tortor quis elit lacus blandit vitae. Nostra dapibus bibendum; curae magnis commodo metus vestibulum tristique. Tristique volutpat consectetur congue lorem pharetra habitant. Sodales gravida egestas venenatis dignissim molestie cursus porta. Massa lacus pulvinar aliquam mi tristique.\n\n Non etiam tempor id arcu magna ante eget. Nec per posuere cubilia cras porttitor condimentum orci suscipit. Leo maecenas in tristique, himenaeos elementum placerat. Taciti rutrum nostra, eget cursus velit ultricies. Quam molestie tellus himenaeos cubilia congue vivamus ultricies. Interdum praesent ut penatibus fames eros ad consectetur sed.",
-            "comments": [
-                {
-                    "id": 1,
-                    "content": "Very very long comment that has zero point but needs to prove a point of overflow !!!",
-                    "publishDate": "2021-04-14T15:22",
-                    "creator": "Ido"
-                },
-                {
-                    "id": 2,
-                    "content": "Wow",
-                    "publishDate": "2019-06-07T00:01",
-                    "creator": "Ido"
-                }
-            ]
-        }, {
-            "id": 2,
-            "username": "Zoey",
-            "likesCount": 66,
-            "uploadDate": "2025-06-23T18:05",
-            "text": "This is my text!\n\nLorem ipsum odor amet, consectetuer adipiscing elit. Imperdiet erat nullam tortor quis elit lacus blandit vitae. Nostra dapibus bibendum; curae magnis commodo metus vestibulum tristique. Tristique volutpat consectetur congue lorem pharetra habitant. Sodales gravida egestas venenatis dignissim molestie cursus porta. Massa lacus pulvinar aliquam mi tristique.\n\n Non etiam tempor id arcu magna ante eget. Nec per posuere cubilia cras porttitor condimentum orci suscipit. Leo maecenas in tristique, himenaeos elementum placerat. Taciti rutrum nostra, eget cursus velit ultricies. Quam molestie tellus himenaeos cubilia congue vivamus ultricies. Interdum praesent ut penatibus fames eros ad consectetur sed.",
-            "comments": [
-                {
-                    "id": 3,
-                    "content": "this is the best comment",
-                    "creator": "Ido222",
-                    "publishDate": "2021-04-14T12:27"
-                },
-                {
-                    "id": 4,
-                    "content": "Second best comment",
-                    "creator": "Roey",
-                    "publishDate": "2018-01-10T08:14"
-                }
-            ]
-        }];
+        try {
+            const loadPosts = async () => {
+                this.posts = (await import('../posts.json')).default;
+            }
+            loadPosts();
+        } catch (e) {
+            alert(e);
+        }
     }
 
-    _isPostExists = (postId: number) => {
-        return this.posts.some(post => post.id === postId);
+    _isPostExists = (postId: number): StatusCodes => {
+        if (!this.posts.some(post => post.id === postId)) {
+            return StatusCodes.POST_ERROR;
+        }
+        return StatusCodes.SUCCESS;
     }
 
-    _getPost = (postId: number) => {
+    _getPost = (postId: number): Post => {
         return this.posts.find(post => post.id === postId);
     }
 
-    _isCommentExists = (postId: number, commentId: number) => {
+    _isCommentExists = (postId: number, commentId: number): StatusCodes => {
+        if (this._isPostExists(postId) === StatusCodes.POST_ERROR) {
+            return StatusCodes.POST_ERROR;
+        }
         const post = this._getPost(postId);
-        return post.comments.some(comment => comment.id === commentId);
+        if (!post.comments.some(comment => comment.id === commentId)) {
+            return StatusCodes.COMMENT_ERROR;
+        }
+        return StatusCodes.SUCCESS;
     }
     _getComment = (postId: number, commentId: number) => {
         const post = this._getPost(postId);
@@ -68,7 +56,14 @@ class PostsController {
     postNewPost = (req, res) => {
         const {username, uploadDate, text} = req.body;
         const nextId = this.posts[this.posts.length - 1].id + 1;
-        const newPost = new Post(nextId, username, 0, uploadDate, text, []);
+        const newPost: Post = {
+            id: nextId,
+            username: username,
+            likesCount: 0,
+            uploadDate: uploadDate,
+            text: text,
+            comments: []
+        };
         this.posts.push(newPost);
         res.status(200);
     }
@@ -79,78 +74,83 @@ class PostsController {
 
     getPostById = (req, res) => {
         const postId: number = Number(req.params.postId);
-        if (this._isPostExists(postId)) {
-            res.status(200).json(this._getPost(postId));
-        } else {
+        if (this._isPostExists(postId) === StatusCodes.POST_ERROR) {
             res.status(400).send('No such post!');
+            return;
         }
+        res.status(200).json(this._getPost(postId));
     }
 
     deletePostById = (req, res) => {
         const postId: number = Number(req.params.postId);
-        if (this._isPostExists(postId)) {
-            const indexToDelete = this.posts.indexOf(this._getPost(postId));
-            this.posts = this.posts.splice(indexToDelete, 1);
-            res.status(200);
-        } else {
+        if (this._isPostExists(postId) === StatusCodes.POST_ERROR) {
             res.status(400).send('No such post!');
+            return;
         }
+        const indexToDelete = this.posts.indexOf(this._getPost(postId));
+        this.posts = this.posts.splice(indexToDelete, 1);
+        res.status(200);
     }
 
     getCommentsFromPost = (req, res) => {
         const postId: number = Number(req.params.postId);
 
-        if (this._isPostExists(postId)) {
-            res.status(200).json(this._getPost(postId).comments);
-        } else {
+        if (this._isPostExists(postId) === StatusCodes.POST_ERROR) {
             res.status(400).send('No such post!');
+            return;
         }
+        res.status(200).json(this._getPost(postId).comments);
     }
 
     postNewCommentToPost = (req, res) => {
         const postId: number = Number(req.params.postId);
         const {content, publishDate, creator} = req.body;
 
-        if (this._isPostExists(postId)) {
-            const post = this._getPost(postId);
-            const nextId: number = post.comments[post.comments.length - 1].id + 1;
-            const newComment = new Comment(nextId, content, publishDate, creator);
-            post.comments.push(newComment);
-            res.status(200);
-        } else {
+        if (this._isPostExists(postId) === StatusCodes.POST_ERROR) {
             res.status(400).send('No such post!');
+            return;
         }
+
+        const post = this._getPost(postId);
+        const nextId: number = post.comments[post.comments.length - 1].id + 1;
+        const newComment: Comment = {
+            id: nextId,
+            content: content,
+            publishDate: publishDate,
+            creator: creator
+        };
+        post.comments.push(newComment);
+        res.status(200);
     }
 
     getCommentById = (req, res) => {
         const postId: number = Number(req.params.postId);
         const commentId: number = Number(req.params.commentId);
-        if (this._isPostExists(postId)) {
-            if (this._isCommentExists(postId, commentId)) {
-                res.status(200).json(this._getComment(postId, commentId));
-            } else {
-                res.status(400).send('No such comment!');
-            }
-        } else {
-            res.status(400).send('No such post!');
+
+        const isCommentExists = this._isCommentExists(postId, commentId);
+        if (isCommentExists !== StatusCodes.SUCCESS) {
+            res.status(400).send(errorMessages[isCommentExists]);
+            return;
         }
+
+        res.status(200).json(this._getComment(postId, commentId));
     }
 
     deleteCommentById = (req, res) => {
         const postId: number = Number(req.params.postId);
         const commentId: number = Number(req.params.commentId);
-        if (this._isPostExists(postId)) {
-            if (this._isCommentExists(postId, commentId)) {
-                const post = this._getPost(postId);
-                const indexToDelete = post.comments.indexOf(this._getComment(postId, commentId));
-                post.comments = post.comments.splice(indexToDelete, 1);
-                res.status(200);
-            } else {
-                res.status(400).send('No such comment!');
-            }
-        } else {
-            res.status(400).send('No such post!');
+
+
+        const isCommentExists = this._isCommentExists(postId, commentId);
+        if (isCommentExists !== StatusCodes.SUCCESS) {
+            res.status(400).send(errorMessages[isCommentExists]);
+            return;
         }
+
+        const post = this._getPost(postId);
+        const indexToDelete = post.comments.indexOf(this._getComment(postId, commentId));
+        post.comments = post.comments.splice(indexToDelete, 1);
+        res.status(200);
     }
 }
 

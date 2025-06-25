@@ -2,7 +2,7 @@ import React, {FC} from "react";
 import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
 import './comment.css';
 import {Typography} from "@mui/material";
-import CommentModel from "./comment-model";
+import CommentModel from "../../../../../common/models/comment-model";
 
 const Comment: FC<Omit<CommentModel, "id">> = ({content, publishDate, creator}) => {
     const date = new Date(publishDate);
@@ -10,7 +10,7 @@ const Comment: FC<Omit<CommentModel, "id">> = ({content, publishDate, creator}) 
 
     return (
         <div className={'comment-info'}>
-            <CommentOutlinedIcon className={'comment-icon'}/>
+            <CommentOutlinedIcon className={'comment-icon'} sx={{width: '2vmin'}}/>
             <div className={'comment-details'}>
                 <div className={'comment-publish-info'}>
                     <Typography fontSize={"0.8rem"} fontWeight={"bold"}>{creator}</Typography>
