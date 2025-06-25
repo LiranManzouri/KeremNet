@@ -7,7 +7,7 @@ enum StatusCodes {
     COMMENT_ERROR
 }
 
-const errorMessages = {
+const messages = {
     [StatusCodes.SUCCESS]: 'Success',
     [StatusCodes.POST_ERROR]: 'No such post',
     [StatusCodes.COMMENT_ERROR]: 'No such comment'
@@ -48,6 +48,7 @@ class PostsController {
         }
         return StatusCodes.SUCCESS;
     }
+
     _getComment = (postId: number, commentId: number) => {
         const post = this._getPost(postId);
         return post.comments.find(comment => comment.id === commentId);
@@ -65,7 +66,7 @@ class PostsController {
             comments: []
         };
         this.posts.push(newPost);
-        res.status(200);
+        res.status(200).send(messages[StatusCodes.SUCCESS]);
     }
 
     getAllPosts = (req, res) => {
@@ -75,7 +76,7 @@ class PostsController {
     getPostById = (req, res) => {
         const postId: number = Number(req.params.postId);
         if (this._isPostExists(postId) === StatusCodes.POST_ERROR) {
-            res.status(400).send('No such post!');
+            res.status(400).send(messages[StatusCodes.POST_ERROR]);
             return;
         }
         res.status(200).json(this._getPost(postId));
@@ -84,19 +85,19 @@ class PostsController {
     deletePostById = (req, res) => {
         const postId: number = Number(req.params.postId);
         if (this._isPostExists(postId) === StatusCodes.POST_ERROR) {
-            res.status(400).send('No such post!');
+            res.status(400).send(messages[StatusCodes.POST_ERROR]);
             return;
         }
         const indexToDelete = this.posts.indexOf(this._getPost(postId));
         this.posts = this.posts.splice(indexToDelete, 1);
-        res.status(200);
+        res.status(200).send(StatusCodes.SUCCESS);
     }
 
     getCommentsFromPost = (req, res) => {
         const postId: number = Number(req.params.postId);
 
         if (this._isPostExists(postId) === StatusCodes.POST_ERROR) {
-            res.status(400).send('No such post!');
+            res.status(400).send(messages[StatusCodes.POST_ERROR]);
             return;
         }
         res.status(200).json(this._getPost(postId).comments);
@@ -107,7 +108,7 @@ class PostsController {
         const {content, publishDate, creator} = req.body;
 
         if (this._isPostExists(postId) === StatusCodes.POST_ERROR) {
-            res.status(400).send('No such post!');
+            res.status(400).send(messages[StatusCodes.POST_ERROR]);
             return;
         }
 
@@ -120,7 +121,7 @@ class PostsController {
             creator: creator
         };
         post.comments.push(newComment);
-        res.status(200);
+        res.status(200).send(messages[StatusCodes.SUCCESS]);
     }
 
     getCommentById = (req, res) => {
@@ -129,7 +130,7 @@ class PostsController {
 
         const isCommentExists = this._isCommentExists(postId, commentId);
         if (isCommentExists !== StatusCodes.SUCCESS) {
-            res.status(400).send(errorMessages[isCommentExists]);
+            res.status(400).send(messages[isCommentExists]);
             return;
         }
 
@@ -143,14 +144,14 @@ class PostsController {
 
         const isCommentExists = this._isCommentExists(postId, commentId);
         if (isCommentExists !== StatusCodes.SUCCESS) {
-            res.status(400).send(errorMessages[isCommentExists]);
+            res.status(400).send(messages[isCommentExists]);
             return;
         }
 
         const post = this._getPost(postId);
         const indexToDelete = post.comments.indexOf(this._getComment(postId, commentId));
         post.comments = post.comments.splice(indexToDelete, 1);
-        res.status(200);
+        res.status(200).send(messages[StatusCodes.SUCCESS]);
     }
 }
 
