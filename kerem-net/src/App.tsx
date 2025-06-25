@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import './app.css';
 import SideBar from "./features/application-layout/side-bar";
 import HomePage from "./features/home-page/home-page";

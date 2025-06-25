@@ -1,32 +1,20 @@
 import {useEffect, useState} from "react";
+import axios from "axios";
 import PostModel from "../post/post-model";
 
 const useGetPosts: () => PostModel[] = () => {
     const [posts, setPosts] = useState<PostModel[]>([])
 
     useEffect(() => {
-
         const getPosts = async () => {
-            const postsRequest = await fetch(
-                "http://localhost:5000/posts",
-                {
-                    method: "get",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                }
-            );
-
-            const postsReceived = await postsRequest.json();
-            setPosts(postsReceived);
+            try {
+                const postsRequest = await axios.get("http://localhost:5000/posts");
+                setPosts(postsRequest.data);
+            } catch (e) {
+                alert(e);
+            }
         }
-
-        try {
-            getPosts().then();
-        } catch (e) {
-            alert(e)
-        }
-
+        getPosts().then();
     }, []);
 
     return posts;
