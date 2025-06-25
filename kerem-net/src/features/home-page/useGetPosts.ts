@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
-import PostModel from "../post/post-model";
+import PostModel from "../../../../common/models/post-model";
+import routes from '../routes.json'
 
 const useGetPosts: () => PostModel[] = () => {
     const [posts, setPosts] = useState<PostModel[]>([])
@@ -8,13 +9,13 @@ const useGetPosts: () => PostModel[] = () => {
     useEffect(() => {
         const getPosts = async () => {
             try {
-                const postsRequest = await axios.get("http://localhost:5000/posts");
+                const postsRequest = await axios.get(routes.postsRoute);
                 setPosts(postsRequest.data);
             } catch (e) {
                 alert(e);
             }
         }
-        getPosts().then();
+        getPosts();
     }, []);
 
     return posts;
