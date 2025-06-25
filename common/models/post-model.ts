@@ -1,4 +1,4 @@
-import CommentModel from "./comment/comment-model";
+import CommentModel from "./comment-model";
 
 interface PostModel {
     id: number;
