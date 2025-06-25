@@ -1,32 +1,24 @@
 import express from "express";
-
-import {
-    postNewPost,
-    deletePostById,
-    getAllPosts,
-    getPostById,
-    putPostById,
-    postNewCommentToPost, getCommentsFromPost, getCommentById
-} from "../controllers/posts-controller";
-
+import PostsController from "../controllers/posts-controller";
 
 const router = express.Router();
+const postsController = new PostsController();
 
 router.route('/')
-    .post(postNewPost)
-    .get(getAllPosts)
+    .get(postsController.getAllPosts)
+    .post(postsController.postNewPost)
 
-router.route('/:id')
-    .get(getPostById)
-    .delete(deletePostById)
-    .put(putPostById)
+router.route('/:postId')
+    .get(postsController.getPostById)
+    .delete(postsController.deletePostById)
 
 router.route('/:postId/comments')
-    .post(postNewCommentToPost)
-    .get(getCommentsFromPost)
+    .get(postsController.getCommentsFromPost)
+    .post(postsController.postNewCommentToPost)
 
 
 router.route('/:postId/comments/:commentId')
-    .get(getCommentById)
+    .get(postsController.getCommentById)
+    .delete(postsController.deleteCommentById)
 
 export default router;

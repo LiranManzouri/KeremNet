@@ -3,7 +3,7 @@ import Comment from './comment-model'
 class Post {
     id: number;
     username: string;
-    likesCount: string;
+    likesCount: number;
     uploadDate: string;
     text: string;
     comments: Comment[];
