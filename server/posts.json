@@ -28,13 +28,13 @@
     "text": "This is my text!\n\nLorem ipsum odor amet, consectetuer adipiscing elit. Imperdiet erat nullam tortor quis elit lacus blandit vitae. Nostra dapibus bibendum; curae magnis commodo metus vestibulum tristique. Tristique volutpat consectetur congue lorem pharetra habitant. Sodales gravida egestas venenatis dignissim molestie cursus porta. Massa lacus pulvinar aliquam mi tristique.\n\n Non etiam tempor id arcu magna ante eget. Nec per posuere cubilia cras porttitor condimentum orci suscipit. Leo maecenas in tristique, himenaeos elementum placerat. Taciti rutrum nostra, eget cursus velit ultricies. Quam molestie tellus himenaeos cubilia congue vivamus ultricies. Interdum praesent ut penatibus fames eros ad consectetur sed.",
     "comments": [
       {
-        "id": 3,
+        "id": 1,
         "content": "this is the best comment",
         "creator": "Ido222",
         "publishDate": "2021-04-14T12:27"
       },
       {
-        "id": 4,
+        "id": 2,
         "content": "Second best comment",
         "creator": "Roey",
         "publishDate": "2018-01-10T08:14"
