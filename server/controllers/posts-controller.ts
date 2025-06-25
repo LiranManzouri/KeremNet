@@ -89,7 +89,7 @@ class PostsController {
             return;
         }
         const indexToDelete = this.posts.indexOf(this._getPost(postId));
-        this.posts = this.posts.splice(indexToDelete, 1);
+        this.posts.splice(indexToDelete, 1);
         res.status(200).send(StatusCodes.SUCCESS);
     }
 
@@ -150,7 +150,7 @@ class PostsController {
 
         const post = this._getPost(postId);
         const indexToDelete = post.comments.indexOf(this._getComment(postId, commentId));
-        post.comments = post.comments.splice(indexToDelete, 1);
+        post.comments.splice(indexToDelete, 1);
         res.status(200).send(messages[StatusCodes.SUCCESS]);
     }
 }
