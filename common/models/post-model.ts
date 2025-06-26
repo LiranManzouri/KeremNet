@@ -1,12 +1,14 @@
-import CommentModel from "./comment-model";
+import {CommentModelArray} from "./comment-model";
 
-interface PostModel {
+export interface PostModel {
     id: number;
     username: string;
     likesCount: number;
     uploadDate: string;
     text: string;
-    comments: CommentModel[];
+    comments: CommentModelArray;
 }
 
-export default PostModel;
+export interface PostModelArray {
+    [id: string]: PostModel;
+}

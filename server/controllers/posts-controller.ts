@@ -1,5 +1,4 @@
-import Post from '../../common/models/post-model';
-import Comment from '../../common/models/comment-model';
+import {PostModel, PostModelArray} from '../../common/models/post-model';
 
 enum StatusCodes {
     SUCCESS,
@@ -14,7 +13,7 @@ const messages = {
 };
 
 class PostsController {
-    posts: Post[];
+    posts: PostModelArray;
 
     constructor() {
         try {
@@ -23,58 +22,59 @@ class PostsController {
             }
             loadPosts();
         } catch (e) {
-            alert(e);
+            console.log('Error reading the posts.json');
         }
     }
 
-    _isPostExists = (postId: number): StatusCodes => {
-        if (!this.posts.some(post => post.id === postId)) {
+    _isPostExists = (postId: string): StatusCodes => {
+        if (!(postId in this.posts)) {
             return StatusCodes.POST_ERROR;
         }
         return StatusCodes.SUCCESS;
     }
 
-    _getPost = (postId: number): Post => {
-        return this.posts.find(post => post.id === postId);
+    _getPost = (postId: string): PostModel => {
+        return this.posts[postId];
     }
 
-    _isCommentExists = (postId: number, commentId: number): StatusCodes => {
+    _isCommentExists = (postId: string, commentId: string): StatusCodes => {
         if (this._isPostExists(postId) === StatusCodes.POST_ERROR) {
             return StatusCodes.POST_ERROR;
         }
         const post = this._getPost(postId);
-        if (!post.comments.some(comment => comment.id === commentId)) {
+        if (!(commentId in post.comments)) {
             return StatusCodes.COMMENT_ERROR;
         }
         return StatusCodes.SUCCESS;
     }
 
-    _getComment = (postId: number, commentId: number) => {
+    _getComment = (postId: string, commentId: string) => {
         const post = this._getPost(postId);
-        return post.comments.find(comment => comment.id === commentId);
+        return post.comments[commentId];
     }
 
     postNewPost = (req, res) => {
         const {username, uploadDate, text} = req.body;
-        const nextId = this.posts[this.posts.length - 1].id + 1;
-        const newPost: Post = {
+        const postsCount = Object.keys(this.posts).length;
+        const lastPostId = Object.keys(this.posts)[postsCount - 1];
+        const nextId = Number(lastPostId) + 1;
+        this.posts[String(nextId)] = {
             id: nextId,
             username: username,
             likesCount: 0,
             uploadDate: uploadDate,
             text: text,
-            comments: []
+            comments: {}
         };
-        this.posts.push(newPost);
         res.status(200).send(messages[StatusCodes.SUCCESS]);
     }
 
     getAllPosts = (req, res) => {
-        res.status(200).json([...this.posts]);
+        res.status(200).json({...this.posts});
     }
 
     getPostById = (req, res) => {
-        const postId: number = Number(req.params.postId);
+        const postId = req.params.postId;
         if (this._isPostExists(postId) === StatusCodes.POST_ERROR) {
             res.status(400).send(messages[StatusCodes.POST_ERROR]);
             return;
@@ -83,18 +83,17 @@ class PostsController {
     }
 
     deletePostById = (req, res) => {
-        const postId: number = Number(req.params.postId);
+        const postId = req.params.postId;
         if (this._isPostExists(postId) === StatusCodes.POST_ERROR) {
             res.status(400).send(messages[StatusCodes.POST_ERROR]);
             return;
         }
-        const indexToDelete = this.posts.indexOf(this._getPost(postId));
-        this.posts.splice(indexToDelete, 1);
+        delete this.posts[postId];
         res.status(200).send(StatusCodes.SUCCESS);
     }
 
     getCommentsFromPost = (req, res) => {
-        const postId: number = Number(req.params.postId);
+        const postId = req.params.postId;
 
         if (this._isPostExists(postId) === StatusCodes.POST_ERROR) {
             res.status(400).send(messages[StatusCodes.POST_ERROR]);
@@ -104,7 +103,7 @@ class PostsController {
     }
 
     postNewCommentToPost = (req, res) => {
-        const postId: number = Number(req.params.postId);
+        const postId = req.params.postId;
         const {content, publishDate, creator} = req.body;
 
         if (this._isPostExists(postId) === StatusCodes.POST_ERROR) {
@@ -113,20 +112,21 @@ class PostsController {
         }
 
         const post = this._getPost(postId);
-        const nextId: number = post.comments[post.comments.length - 1].id + 1;
-        const newComment: Comment = {
+        const commentsCount = Object.keys(post.comments).length;
+        const lastCommentId = Object.keys(post.comments)[commentsCount - 1];
+        const nextId = Number(lastCommentId) + 1;
+        post.comments[String(nextId)] = {
             id: nextId,
             content: content,
             publishDate: publishDate,
             creator: creator
         };
-        post.comments.push(newComment);
         res.status(200).send(messages[StatusCodes.SUCCESS]);
     }
 
     getCommentById = (req, res) => {
-        const postId: number = Number(req.params.postId);
-        const commentId: number = Number(req.params.commentId);
+        const postId = req.params.postId;
+        const commentId = req.params.commentId;
 
         const isCommentExists = this._isCommentExists(postId, commentId);
         if (isCommentExists !== StatusCodes.SUCCESS) {
@@ -138,8 +138,8 @@ class PostsController {
     }
 
     deleteCommentById = (req, res) => {
-        const postId: number = Number(req.params.postId);
-        const commentId: number = Number(req.params.commentId);
+        const postId = req.params.postId;
+        const commentId = req.params.commentId;
 
 
         const isCommentExists = this._isCommentExists(postId, commentId);
@@ -149,8 +149,7 @@ class PostsController {
         }
 
         const post = this._getPost(postId);
-        const indexToDelete = post.comments.indexOf(this._getComment(postId, commentId));
-        post.comments.splice(indexToDelete, 1);
+        delete post.comments[commentId];
         res.status(200).send(messages[StatusCodes.SUCCESS]);
     }
 }
