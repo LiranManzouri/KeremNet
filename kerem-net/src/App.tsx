@@ -10,7 +10,7 @@ import LoadingPage from "./features/loading-page/loading-page";
 import {Alert, Button} from "@mui/material";
 
 function App() {
-    const posts = useGetPosts();
+    const [posts, getPosts] = useGetPosts();
 
     if (posts === undefined) {
         return (
@@ -30,7 +30,7 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path={'/'} element={<Layout posts={posts}/>}>
+                <Route path={'/'} element={<Layout posts={posts} getPosts={getPosts}/>}>
                     <Route index element={<Navigate to="posts"/>}/>
                     <Route path={'posts'} element={<HomePage posts={posts}/>}/>
                     <Route path={'posts/:postId'} element={<SinglePostPage posts={posts}/>}/>

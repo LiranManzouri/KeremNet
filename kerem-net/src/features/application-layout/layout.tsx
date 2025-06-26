@@ -1,39 +1,20 @@
-import React, {FC, useState} from "react";
+import React, {FC} from "react";
 import {Outlet} from "react-router";
 
-import {AppBar, Avatar, IconButton, Toolbar, Button} from "@mui/material";
+import {AppBar, Avatar, IconButton, Toolbar} from "@mui/material";
 import logo from './logo.png';
-import './layout.css'
-import {useNavigate} from "react-router-dom";
-import SinglePostDialog from "../single-post-page/SinglePostDialog";
+import './layout.css';
 import {PostModelArray} from "../../../../common/models/post-model";
+import AllPostsButton from "./buttons/all-posts-button";
+import SinglePostButton from "./buttons/single-post-button";
+import AddPostButton from "./buttons/add-post-button";
 
 interface Props {
     posts: PostModelArray;
+    getPosts: () => void;
 }
 
-const Layout: FC<Props> = ({posts}) => {
-
-    const navigate = useNavigate();
-
-    const allPostsOnClick = () => {
-        navigate('/posts');
-    }
-
-    const [singlePostOpen, setSinglePostOpen] = useState<boolean>(false);
-
-    const handleSinglePostOpen = () => {
-        setSinglePostOpen(true);
-    }
-
-    const handleSinglePostClosed = (postId: string | undefined) => {
-        setSinglePostOpen(false);
-        if (postId === undefined) {
-            return;
-        }
-        navigate(`/posts/${postId}`);
-    }
-
+const Layout: FC<Props> = ({posts, getPosts}) => {
     return (
         <>
             <AppBar className={'side-bar'} position={"static"}>
@@ -46,17 +27,9 @@ const Layout: FC<Props> = ({posts}) => {
                         <Avatar src={logo}/>
                     </IconButton>
                     <div className={'menu-options'}>
-                        <Button sx={{color: 'white'}} onClick={() => allPostsOnClick()}>
-                            All Posts
-                        </Button>
-                        <Button sx={{color: 'white'}} onClick={() => handleSinglePostOpen()}>
-                            Specific Post
-                        </Button>
-                        <SinglePostDialog
-                            open={singlePostOpen}
-                            onClose={(postId) => handleSinglePostClosed(postId)}
-                            posts={posts}
-                        />
+                        <AllPostsButton getPosts={getPosts}/>
+                        <SinglePostButton posts={posts}/>
+                        <AddPostButton posts={posts} getPosts={getPosts}/>
                     </div>
                 </Toolbar>
             </AppBar>

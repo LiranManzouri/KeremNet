@@ -1,11 +1,17 @@
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import axios from "axios";
 import {PostModelArray} from "../../../../common/models/post-model";
 import routes from '../routes.json'
 
-const useGetPosts: () => PostModelArray | undefined = () => {
+const useGetPosts: () => [PostModelArray | undefined, () => void] = () => {
     const [posts, setPosts] = useState<PostModelArray>({})
-    let [success, setSuccess] = useState<boolean>(true);
+    const [success, setSuccess] = useState<boolean>(true);
+    const [shouldGetPosts, setShouldGetPosts] = useState<boolean>(true);
+
+    const getPosts = useCallback(() => {
+        setShouldGetPosts(prev => !prev);
+    }, []);
+
 
     useEffect(() => {
         const getPosts = async () => {
@@ -17,12 +23,12 @@ const useGetPosts: () => PostModelArray | undefined = () => {
             }
         }
         getPosts();
-    }, []);
+    }, [shouldGetPosts]);
 
     if (!success) {
-        return undefined;
+        return [undefined, getPosts];
     }
-    return posts;
+    return [posts, getPosts];
 }
 
 export default useGetPosts;

@@ -1,9 +1,9 @@
 import React, {FC} from "react";
-import {Avatar, Dialog, List, ListItem, ListItemAvatar, ListItemButton, ListItemText} from "@mui/material";
+import {Avatar, Dialog, DialogTitle, List, ListItem, ListItemAvatar, ListItemButton, ListItemText} from "@mui/material";
 import {blue} from "@mui/material/colors";
 import PersonIcon from "@mui/icons-material/Person";
 
-import {PostModelArray} from "../../../../common/models/post-model";
+import {PostModelArray} from "../../../../../common/models/post-model";
 
 interface Props {
     open: boolean;
@@ -22,6 +22,7 @@ const SinglePostDialog: FC<Props> = ({open, onClose, posts}) => {
 
     return (
         <Dialog onClose={handleClose} open={open}>
+            <DialogTitle>Choose the desired post</DialogTitle>
             <List>
                 {Object.values(posts).map((post) => {
                     const date = new Date(post.uploadDate);
