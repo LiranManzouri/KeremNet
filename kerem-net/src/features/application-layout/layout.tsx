@@ -1,12 +1,11 @@
 import React, {FC, useState} from "react";
 import {Outlet} from "react-router";
 
-import {AppBar, Avatar, IconButton, Toolbar, Button, Dialog} from "@mui/material";
+import {AppBar, Avatar, IconButton, Toolbar, Button} from "@mui/material";
 import logo from './logo.png';
 import './layout.css'
 import {useNavigate} from "react-router-dom";
 import SinglePostDialog from "../single-post-page/SinglePostDialog";
-import singlePostDialog from "../single-post-page/SinglePostDialog";
 import PostModel from "../../../../common/models/post-model";
 
 interface Props {

@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from "react";
+import React, {FC, useEffect} from "react";
 import PostModel from "../../../../common/models/post-model";
 import Post from "../post/post";
 import {useNavigate, useParams} from "react-router-dom";
@@ -23,7 +23,7 @@ const SinglePostPage: FC<Props> = ({posts}) => {
             }, 3000);
             return () => clearInterval(timerId);
         }
-    }, [navigate]);
+    }, [navigate, isExists]);
 
     if (!isExists) {
         return (
