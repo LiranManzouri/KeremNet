@@ -65,7 +65,6 @@ const AddPostDialog: FC<Props> = ({open, onClose, posts}) => {
                     variant="standard"
                 />
                 <TextField
-                    autoFocus
                     required
                     id="name"
                     name="text"
