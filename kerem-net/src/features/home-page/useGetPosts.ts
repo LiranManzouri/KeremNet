@@ -3,8 +3,9 @@ import axios from "axios";
 import {PostModelArray} from "../../../../common/models/post-model";
 import routes from '../routes.json'
 
-const useGetPosts: () => PostModelArray = () => {
+const useGetPosts: () => PostModelArray | undefined = () => {
     const [posts, setPosts] = useState<PostModelArray>({})
+    let [success, setSuccess] = useState<boolean>(true);
 
     useEffect(() => {
         const getPosts = async () => {
@@ -12,12 +13,15 @@ const useGetPosts: () => PostModelArray = () => {
                 const postsRequest = await axios.get<PostModelArray>(routes.postsRoute);
                 setPosts(postsRequest.data);
             } catch (e) {
-                alert(e);
+                setSuccess(false);
             }
         }
         getPosts();
     }, []);
 
+    if (!success) {
+        return undefined;
+    }
     return posts;
 }
 

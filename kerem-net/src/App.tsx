@@ -7,9 +7,19 @@ import HomePage from "./features/home-page/home-page";
 import useGetPosts from "./features/home-page/useGetPosts";
 import SinglePostPage from "./features/single-post-page/single-post-page"
 import LoadingPage from "./features/loading-page/loading-page";
+import {Alert, Button} from "@mui/material";
 
 function App() {
     const posts = useGetPosts();
+
+    if (posts === undefined) {
+        return (
+            <div className={'error'}>
+                <Alert severity="error">Error getting the posts!</Alert>
+                <Button onClick={() => window.location.reload()}>Try again!</Button>
+            </div>
+        );
+    }
 
     if (Object.keys(posts).length === 0) {
         return (

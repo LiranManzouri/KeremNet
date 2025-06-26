@@ -6,3 +6,12 @@
     --postWidth: 30vw;
     --postHeight: 50vh;
 }
+
+.error {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
