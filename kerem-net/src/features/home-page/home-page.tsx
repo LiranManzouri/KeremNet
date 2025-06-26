@@ -1,12 +1,13 @@
 import React, {FC} from "react";
 import Post from "../post/post";
 import './home-page.css'
-import useGetPosts from "./useGetPosts";
+import PostModel from '../../../../common/models/post-model';
 
-const HomePage: FC = () => {
+interface Props {
+    posts: PostModel[]
+}
 
-    const posts = useGetPosts();
-
+const HomePage: FC<Props> = ({posts}) => {
     return (
         <div className={'home-page'}>
             {
