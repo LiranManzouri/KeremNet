@@ -1,17 +1,17 @@
 import React, {FC} from "react";
 import Post from "../post/post";
 import './home-page.css'
-import PostModel from '../../../../common/models/post-model';
+import {PostModelArray} from '../../../../common/models/post-model';
 
 interface Props {
-    posts: PostModel[]
+    posts: PostModelArray
 }
 
 const HomePage: FC<Props> = ({posts}) => {
     return (
         <div className={'home-page'}>
             {
-                posts.map(post =>
+                Object.values(posts).map(post =>
                     <Post
                         key={post.id}
                         username={post.username}

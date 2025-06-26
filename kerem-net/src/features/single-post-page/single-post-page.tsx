@@ -1,5 +1,5 @@
 import React, {FC, useEffect} from "react";
-import PostModel from "../../../../common/models/post-model";
+import {PostModelArray} from "../../../../common/models/post-model";
 import Post from "../post/post";
 import {useNavigate, useParams} from "react-router-dom";
 
@@ -7,13 +7,13 @@ import './single-post-page.css';
 import {Typography} from "@mui/material";
 
 interface Props {
-    posts: PostModel[]
+    posts: PostModelArray
 }
 
 const SinglePostPage: FC<Props> = ({posts}) => {
     const params = useParams();
-    const postId = Number(params.postId);
-    const isExists = posts.some(post => post.id === postId);
+    const postId = params.postId;
+    const isExists = postId !== undefined && postId in posts;
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -39,11 +39,11 @@ const SinglePostPage: FC<Props> = ({posts}) => {
         );
     }
 
-    const {id, ...post} = {...posts.find(p => p.id === postId) as PostModel};
+    const {id, ...post} = {...posts[postId]};
 
     return (
         <div className={'single-post-page'}>
-            <Post {...post}/>
+            <Post key={id} {...post}/>
         </div>
     );
 }

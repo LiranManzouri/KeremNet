@@ -11,7 +11,7 @@ import LoadingPage from "./features/loading-page/loading-page";
 function App() {
     const posts = useGetPosts();
 
-    if (posts.length === 0) {
+    if (Object.keys(posts).length === 0) {
         return (
             <LoadingPage/>
         );

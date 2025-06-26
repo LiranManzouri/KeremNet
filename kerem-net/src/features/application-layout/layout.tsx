@@ -6,10 +6,10 @@ import logo from './logo.png';
 import './layout.css'
 import {useNavigate} from "react-router-dom";
 import SinglePostDialog from "../single-post-page/SinglePostDialog";
-import PostModel from "../../../../common/models/post-model";
+import {PostModelArray} from "../../../../common/models/post-model";
 
 interface Props {
-    posts: PostModel[];
+    posts: PostModelArray;
 }
 
 const Layout: FC<Props> = ({posts}) => {

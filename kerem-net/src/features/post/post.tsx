@@ -3,7 +3,7 @@ import './post.css';
 import {Card, CardContent, CardHeader, Typography} from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Comment from './comment/comment';
-import PostModel from "../../../../common/models/post-model";
+import {PostModel} from "../../../../common/models/post-model";
 
 const Post: FC<Omit<PostModel, "id">> = (
     {
@@ -32,7 +32,7 @@ const Post: FC<Omit<PostModel, "id">> = (
             <div className={'post-comments'}>
                 <Typography>{'Comments:'}</Typography>
                 <ol className={'comments'}>
-                    {comments.map(comment =>
+                    {Object.values(comments).map(comment =>
                         <Comment
                             key={comment.id}
                             {...comment}

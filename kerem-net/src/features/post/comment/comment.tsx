@@ -2,7 +2,7 @@ import React, {FC} from "react";
 import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
 import './comment.css';
 import {Typography} from "@mui/material";
-import CommentModel from "../../../../../common/models/comment-model";
+import {CommentModel} from "../../../../../common/models/comment-model";
 
 const Comment: FC<Omit<CommentModel, "id">> = ({content, publishDate, creator}) => {
     const date = new Date(publishDate);

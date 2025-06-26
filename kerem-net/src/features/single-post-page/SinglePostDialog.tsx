@@ -3,12 +3,12 @@ import {Avatar, Dialog, List, ListItem, ListItemAvatar, ListItemButton, ListItem
 import {blue} from "@mui/material/colors";
 import PersonIcon from "@mui/icons-material/Person";
 
-import PostModel from "../../../../common/models/post-model";
+import {PostModelArray} from "../../../../common/models/post-model";
 
 interface Props {
     open: boolean;
     onClose: (value: string | undefined) => void;
-    posts: PostModel[];
+    posts: PostModelArray;
 }
 
 const SinglePostDialog: FC<Props> = ({open, onClose, posts}) => {
@@ -23,7 +23,7 @@ const SinglePostDialog: FC<Props> = ({open, onClose, posts}) => {
     return (
         <Dialog onClose={handleClose} open={open}>
             <List>
-                {posts.map((post) => {
+                {Object.values(posts).map((post) => {
                     const date = new Date(post.uploadDate);
                     const dateToShow =
                         `${date.toLocaleTimeString([], {timeStyle: 'short'})}, ${date.toLocaleDateString()}`;
