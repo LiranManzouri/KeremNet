@@ -51,8 +51,7 @@ const AddPostDialog: FC<Props> = ({open, onClose, posts}) => {
             <DialogTitle>Add info about your new post:</DialogTitle>
             <DialogContent>
                 <DialogContentText>
-                    To subscribe to this website, please enter your email address here. We
-                    will send updates occasionally.
+                    Enter your username and text
                 </DialogContentText>
                 <TextField
                     autoFocus
