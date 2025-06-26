@@ -9,7 +9,7 @@ const useGetPosts: () => PostModel[] = () => {
     useEffect(() => {
         const getPosts = async () => {
             try {
-                const postsRequest = await axios.get(routes.postsRoute);
+                const postsRequest = await axios.get<PostModel[]>(routes.postsRoute);
                 setPosts(postsRequest.data);
             } catch (e) {
                 alert(e);

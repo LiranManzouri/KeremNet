@@ -1,11 +1,40 @@
-import React, {FC} from "react";
+import React, {FC, useState} from "react";
 import {Outlet} from "react-router";
 
-import {AppBar, Avatar, IconButton, Toolbar, Button} from "@mui/material";
+import {AppBar, Avatar, IconButton, Toolbar, Button, Dialog} from "@mui/material";
 import logo from './logo.png';
 import './layout.css'
+import {useNavigate} from "react-router-dom";
+import SinglePostDialog from "../single-post-page/SinglePostDialog";
+import singlePostDialog from "../single-post-page/SinglePostDialog";
+import PostModel from "../../../../common/models/post-model";
 
-const Layout: FC = () => {
+interface Props {
+    posts: PostModel[];
+}
+
+const Layout: FC<Props> = ({posts}) => {
+
+    const navigate = useNavigate();
+
+    const allPostsOnClick = () => {
+        navigate('/posts');
+    }
+
+    const [singlePostOpen, setSinglePostOpen] = useState<boolean>(false);
+
+    const handleSinglePostOpen = () => {
+        setSinglePostOpen(true);
+    }
+
+    const handleSinglePostClosed = (postId: string | undefined) => {
+        setSinglePostOpen(false);
+        if (postId === undefined) {
+            return;
+        }
+        navigate(`/posts/${postId}`);
+    }
+
     return (
         <>
             <AppBar className={'side-bar'} position={"static"}>
@@ -18,9 +47,17 @@ const Layout: FC = () => {
                         <Avatar src={logo}/>
                     </IconButton>
                     <div className={'menu-options'}>
-                        <Button sx={{color: 'white'}}>
+                        <Button sx={{color: 'white'}} onClick={() => allPostsOnClick()}>
                             All Posts
                         </Button>
+                        <Button sx={{color: 'white'}} onClick={() => handleSinglePostOpen()}>
+                            Specific Post
+                        </Button>
+                        <SinglePostDialog
+                            open={singlePostOpen}
+                            onClose={(postId) => handleSinglePostClosed(postId)}
+                            posts={posts}
+                        />
                     </div>
                 </Toolbar>
             </AppBar>

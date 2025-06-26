@@ -20,7 +20,7 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path={'/'} element={<Layout/>}>
+                <Route path={'/'} element={<Layout posts={posts}/>}>
                     <Route index element={<Navigate to="posts"/>}/>
                     <Route path={'posts'} element={<HomePage posts={posts}/>}/>
                     <Route path={'posts/:postId'} element={<SinglePostPage posts={posts}/>}/>
