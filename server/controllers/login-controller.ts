@@ -45,7 +45,6 @@ class LoginController {
         res.status(200).send(messages[StatusCodes.SUCCESS]);
     }
 
-
     getUserByInfo = (req, res) => {
         const username = req.params.username;
         const password = req.params.password;
