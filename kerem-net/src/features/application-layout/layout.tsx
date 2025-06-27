@@ -8,13 +8,15 @@ import {PostModelArray} from "../../../../common/models/post-model";
 import AllPostsButton from "./buttons/all-posts-button";
 import SinglePostButton from "./buttons/single-post-button";
 import AddPostButton from "./buttons/add-post-button";
+import {AlertInfo} from "../../App";
 
 interface Props {
     posts: PostModelArray;
     getPosts: () => void;
+    alertInfo: AlertInfo;
 }
 
-const Layout: FC<Props> = ({posts, getPosts}) => {
+const Layout: FC<Props> = ({posts, getPosts, alertInfo}) => {
     return (
         <>
             <AppBar className={'side-bar'} position={"static"}>
@@ -29,7 +31,7 @@ const Layout: FC<Props> = ({posts, getPosts}) => {
                     <div className={'menu-options'}>
                         <AllPostsButton getPosts={getPosts}/>
                         <SinglePostButton posts={posts}/>
-                        <AddPostButton posts={posts} getPosts={getPosts}/>
+                        <AddPostButton getPosts={getPosts} alertInfo={alertInfo}/>
                     </div>
                 </Toolbar>
             </AppBar>

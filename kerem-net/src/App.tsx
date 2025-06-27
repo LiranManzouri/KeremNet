@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './app.css';
 import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 
@@ -7,36 +7,44 @@ import HomePage from "./features/home-page/home-page";
 import useGetPosts from "./features/home-page/useGetPosts";
 import SinglePostPage from "./features/single-post-page/single-post-page"
 import LoadingPage from "./features/loading-page/loading-page";
-import {Alert, Button} from "@mui/material";
+import CustomizedSnackbar from "./CustomizedSnackbar";
+
+export interface AlertInfo {
+    showAlert: boolean;
+    setShowAlert: React.Dispatch<React.SetStateAction<boolean>>;
+    alertMessage: string;
+    setAlertMessage: React.Dispatch<React.SetStateAction<string>>;
+}
 
 function App() {
-    const [posts, getPosts] = useGetPosts();
+    const [showAlert, setShowAlert] = useState<boolean>(false);
+    const [alertMessage, setAlertMessage] = useState<string>('');
+    const alertInfo: AlertInfo = {showAlert, setShowAlert, alertMessage, setAlertMessage};
 
-    if (posts === undefined) {
-        return (
-            <div className={'error'}>
-                <Alert severity="error">Error getting the posts!</Alert>
-                <Button onClick={() => window.location.reload()}>Try again!</Button>
-            </div>
-        );
-    }
+    const [posts, getPosts] = useGetPosts(alertInfo);
 
-    if (Object.keys(posts).length === 0) {
+    if (posts !== undefined && Object.keys(posts).length === 0) {
         return (
             <LoadingPage/>
         );
     }
 
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path={'/'} element={<Layout posts={posts} getPosts={getPosts}/>}>
-                    <Route index element={<Navigate to="posts"/>}/>
-                    <Route path={'posts'} element={<HomePage posts={posts}/>}/>
-                    <Route path={'posts/:postId'} element={<SinglePostPage posts={posts}/>}/>
-                </Route>
-            </Routes>
-        </BrowserRouter>
+        <>
+            <BrowserRouter>
+                <Routes>
+                    <Route path={'/'} element={<Layout posts={posts || {}} getPosts={getPosts} alertInfo={alertInfo}/>}>
+                        <Route index element={<Navigate to="posts"/>}/>
+                        <Route path={'posts'} element={<HomePage posts={posts || {}}/>}/>
+                        <Route path={'posts/:postId'} element={<SinglePostPage posts={posts || {}}/>}/>
+                    </Route>
+                </Routes>
+            </BrowserRouter>
+            {
+                alertInfo.showAlert &&
+                <CustomizedSnackbar alertInfo={alertInfo}/>
+            }
+        </>
     );
 }
 

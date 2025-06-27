@@ -1,14 +1,14 @@
 import React, {FC, useState} from "react";
-import {PostModelArray} from "../../../../../common/models/post-model";
 import {Button} from "@mui/material";
 import AddPostDialog from "./add-post-dialog";
+import {AlertInfo} from "../../../App";
 
 interface Props {
-    posts: PostModelArray;
     getPosts: () => void;
+    alertInfo: AlertInfo;
 }
 
-const AddPostButton: FC<Props> = ({posts, getPosts}) => {
+const AddPostButton: FC<Props> = ({getPosts, alertInfo}) => {
     const [addPostOpen, setAddPostOpen] = useState<boolean>(false);
 
     const handleAddPostOpen = () => {
@@ -28,7 +28,7 @@ const AddPostButton: FC<Props> = ({posts, getPosts}) => {
             <AddPostDialog
                 open={addPostOpen}
                 onClose={() => handleAddPostClosed()}
-                posts={posts}
+                alertInfo={alertInfo}
             />
         </>
     );
