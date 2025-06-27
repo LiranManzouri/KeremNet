@@ -1,0 +1,14 @@
+{
+  "Liran": {
+    "username": "Liran",
+    "password": "123456",
+    "image": "some_url!",
+    "some_info": "this is some text about texting texts while not texting"
+  },
+  "Charlie": {
+    "username": "Charlie",
+    "password": "987654",
+    "image": "other_url!",
+    "some_info": "some info about charlie as well because it is the best"
+  }
+}
