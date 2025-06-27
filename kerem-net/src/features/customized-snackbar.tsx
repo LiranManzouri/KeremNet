@@ -1,6 +1,6 @@
 import React, {FC} from "react";
 import {Alert, Snackbar, SnackbarCloseReason} from "@mui/material";
-import {AlertInfo} from "./App";
+import {AlertInfo} from "../App";
 
 interface Props {
     alertInfo: AlertInfo;

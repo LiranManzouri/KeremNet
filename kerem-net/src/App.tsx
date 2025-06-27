@@ -7,7 +7,7 @@ import HomePage from "./features/home-page/home-page";
 import useGetPosts from "./features/home-page/useGetPosts";
 import SinglePostPage from "./features/single-post-page/single-post-page"
 import LoadingPage from "./features/loading-page/loading-page";
-import CustomizedSnackbar from "./CustomizedSnackbar";
+import CustomizedSnackbar from "./features/customized-snackbar";
 
 export interface AlertInfo {
     showAlert: boolean;

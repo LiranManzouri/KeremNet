@@ -10,7 +10,7 @@ import {
 import React, {FC, FormEvent} from "react";
 import axios from "axios";
 import routes from "../../routes.json";
-import CustomizedSnackbar from "../../../CustomizedSnackbar";
+import CustomizedSnackbar from "../../customized-snackbar";
 import {AlertInfo} from "../../../App";
 
 interface Props {
